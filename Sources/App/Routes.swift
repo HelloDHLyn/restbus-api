@@ -2,25 +2,19 @@ import Vapor
 
 final class Routes: RouteCollection {
     func build(_ builder: RouteBuilder) throws {
-        builder.get("hello") { req in
-            var json = JSON()
-            try json.set("hello", "world")
-            return json
-        }
+        builder.group("v1") { v1 in
+            v1.get("hello") { req in
+                return "Hello, world!"
+            }
 
-        builder.get("plaintext") { req in
-            return "Hello, world!"
+            // GET /v1/routes
+            v1.group("routes") { routes in
+                let controller = BusRouteController()
+                routes.get("") { req in
+                    return try controller.search(req)
+                }
+            }
         }
-        
-        // response to requests to /info domain
-        // with a description of the request
-        builder.get("info") { req in
-            return req.description
-        }
-
-       builder.get("*") { req in return req.description }
-        
-        try builder.resource("posts", PostController.self)
     }
 }
 
