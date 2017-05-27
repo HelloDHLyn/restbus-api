@@ -1,6 +1,11 @@
 import Vapor
 
 final class Routes: RouteCollection {
+    let drop: Droplet
+    init (droplet: Droplet) {
+        drop = droplet
+    }
+
     func build(_ builder: RouteBuilder) throws {
         builder.group("v1") { v1 in
             v1.get("hello") { req in
@@ -14,12 +19,14 @@ final class Routes: RouteCollection {
                     return try controller.search(req)
                 }
             }
+
+            // GET /v1/stations
+            v1.group("stations") { stations in
+                let controller = BusStationController(droplet: drop)
+                stations.get("") { req in
+                    return try controller.get(req)
+                }
+            }
         }
     }
 }
-
-/// Since Routes doesn't depend on anything
-/// to be initialized, we can conform it to EmptyInitializable
-///
-/// This will allow it to be passed by type.
-extension Routes: EmptyInitializable { }
