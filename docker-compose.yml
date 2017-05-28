@@ -1,0 +1,9 @@
+version: '2'
+services:
+  restbus:
+    build: .
+    command: vapor run serve
+    ports:
+      - "8083:8083"
+    environment:
+      PORT: 8083
