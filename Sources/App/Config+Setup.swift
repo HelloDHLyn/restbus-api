@@ -9,6 +9,7 @@ extension Config {
 
         try setupProviders()
         try setupPreparations()
+        try setupConfigurable()
     }
 
     /// Configure providers
@@ -21,5 +22,9 @@ extension Config {
     /// schemas prepared before the app boots
     private func setupPreparations() throws {
         preparations.append(BusRoute.self)
+    }
+
+    private func setupConfigurable() throws {
+        addConfigurable(command: GetRoutesBatchCommand.init, name: "batch-get-routes")
     }
 }

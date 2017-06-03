@@ -16,10 +16,10 @@ final class BusRoute: Model {
     var routeType: Int
 
     /// 기점 이름
-    var firstStationName: String
+    var firstStationName: String?
 
     /// 종점 이름
-    var lastStationName: String
+    var lastStationName: String?
 
     /// 첫차 시간 (yyyyMMddhhmmss)
     var firstBusTime: Date
@@ -30,8 +30,8 @@ final class BusRoute: Model {
     /// 배차간격
     var term: Int
 
-    init(routeId: Int, routeName: String, routeType: Int, firstStationName: String,
-         lastStationName: String, firstBusTime: Date, lastBusTime: Date, term: Int) throws{
+    init(routeId: Int, routeName: String, routeType: Int, firstStationName: String?,
+         lastStationName: String?, firstBusTime: Date, lastBusTime: Date, term: Int) throws{
         self.routeId = routeId
         self.routeName = routeName
         self.routeType = routeType
@@ -55,13 +55,13 @@ final class BusRoute: Model {
 
     func makeRow() throws -> Row {
         var row = Row()
-        try row.set("routeId", routeId)
-        try row.set("routeName", routeName)
-        try row.set("routeType", routeType)
-        try row.set("firstStationName", firstStationName)
-        try row.set("lastStationName", lastStationName)
-        try row.set("firstBusTime", firstBusTime)
-        try row.set("lastBusTime", lastBusTime)
+        try row.set("route_id", routeId)
+        try row.set("route_name", routeName)
+        try row.set("route_type", routeType)
+        try row.set("first_station_name", firstStationName)
+        try row.set("last_station_name", lastStationName)
+        try row.set("first_bus_time", firstBusTime)
+        try row.set("last_bus_time", lastBusTime)
         try row.set("term", term)
         return row
     }

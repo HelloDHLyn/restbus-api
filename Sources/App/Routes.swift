@@ -9,7 +9,7 @@ final class Routes: RouteCollection {
     func build(_ builder: RouteBuilder) throws {
         builder.group("v1") { v1 in
             v1.get("hello") { req in
-                return "Hello, world!"
+                return "\"Hello, world!\""
             }
 
             // GET /v1/routes
