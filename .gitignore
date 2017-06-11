@@ -1,1 +1,11 @@
+# Python stuffs
+*.pyc
+__pycache__
+
+# Sensitives
+config/*.py
+!config/__init__.py
+
+# Development
+env
 .idea
