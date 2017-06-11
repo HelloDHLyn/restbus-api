@@ -1,1 +1,2 @@
 DATABASE_URL = "mysql+pymysql://[id]:[password]@[host]/[database]"
+TOPIS_AUTH_TOKEN = ""

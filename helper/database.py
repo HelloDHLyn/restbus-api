@@ -1,7 +1,7 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
-from config.database import DATABASE_URL
+from config.const import DATABASE_URL
 
 
 class DatabaseHelper(object):
