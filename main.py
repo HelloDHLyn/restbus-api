@@ -2,9 +2,12 @@ from flask import Flask, request, jsonify
 
 from helper.controller import ControllerHelper
 from helper.database import DatabaseHelper
+from helper.json import CustomJSONEncoder
 from model.bus_route import BusRoute
 
 app = Flask(__name__)
+app.json_encoder = CustomJSONEncoder
+
 session = DatabaseHelper().session()
 
 
