@@ -1,0 +1,10 @@
+version: '2'
+services:
+  web:
+    build: .
+    command: python main.py
+    volumes:
+      - .:/usr/src/app
+    ports:
+      - "8083:5000"
+      - "3306"
