@@ -1,12 +1,15 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request
 
-from helper.controller import ControllerHelper
-from helper.database import DatabaseHelper
-from helper.json import CustomJSONEncoder
+from commons.api import Api
+from commons.database import DatabaseHelper
+from commons.decorators import json_response
+from commons.json import CustomJSONEncoder
 from model.bus_route import BusRoute
 
 app = Flask(__name__)
 app.json_encoder = CustomJSONEncoder
+
+api = Api()
 
 session = DatabaseHelper().session()
 
@@ -17,31 +20,30 @@ def hello():
 
 
 @app.route('/v1/routes', methods=['GET'])
+@json_response
 def bus_routes():
     query_string = request.args.get('query')
-
     routes = session.query(BusRoute).filter(BusRoute.route_name.like(f"%{query_string}%")).all()
-    session.close()
 
-    return jsonify(list(map(lambda i: i.as_dict(), routes)))
+    return list(map(lambda i: i.as_dict(), routes))
 
 
 @app.route('/v1/stations', methods=['GET'])
+@json_response
 def bus_stations():
     route_id = request.args.get('route_id')
 
-    controller = ControllerHelper().station_controller()
-    return jsonify(controller.get(route_id))
+    return api.get_stations(route_id)
 
 
 @app.route('/v1/arrivals', methods=['GET'])
+@json_response
 def arrivals():
     route_id = request.args.get('route_id')
     station_id = request.args.get('station_id')
-    order = int(request.args.get('order'))
+    sequence = int(request.args.get('sequence'))
 
-    controller = ControllerHelper().arrival_controller()
-    return jsonify(controller.get(route_id, station_id, order))
+    return api.get_arrivals(route_id, station_id, sequence)
 
 
 if __name__ == "__main__":

@@ -2,3 +2,4 @@ flask
 SQLAlchemy
 pymysql
 urllib3
+certifi
