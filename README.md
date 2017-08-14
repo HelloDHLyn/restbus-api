@@ -1,5 +1,5 @@
-# restbus-api
-서울 시내버스 남은 좌석 실시간 정보 서비스 API
+# lynlab-apis
+API Server for LYnLab services
 
 ## Requirements
   - docker-compose

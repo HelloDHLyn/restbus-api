@@ -19,7 +19,7 @@ def hello():
     return "Hello, world!"
 
 
-@app.route('/v1/routes', methods=['GET'])
+@app.route('/v1/bus/routes', methods=['GET'])
 @json_response
 def bus_routes():
     query_string = request.args.get('query')
@@ -28,7 +28,7 @@ def bus_routes():
     return list(map(lambda i: i.as_dict(), routes))
 
 
-@app.route('/v1/stations', methods=['GET'])
+@app.route('/v1/bus/stations', methods=['GET'])
 @json_response
 def bus_stations():
     route_id = request.args.get('route_id')
@@ -36,7 +36,7 @@ def bus_stations():
     return api.get_stations(route_id)
 
 
-@app.route('/v1/arrivals', methods=['GET'])
+@app.route('/v1/bus/arrivals', methods=['GET'])
 @json_response
 def arrivals():
     route_id = request.args.get('route_id')
