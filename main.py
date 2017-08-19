@@ -2,7 +2,7 @@ from flask import Flask, request
 
 from commons.api import Api
 from commons.database import DatabaseHelper
-from commons.decorators import json_response
+from commons.decorators import json_response, transactional
 from commons.json import CustomJSONEncoder
 from model.bus_route import BusRoute
 
@@ -21,6 +21,7 @@ def hello():
 
 @app.route('/v1/bus/routes', methods=['GET'])
 @json_response
+@transactional(session)
 def bus_routes():
     query_string = request.args.get('query')
     routes = session.query(BusRoute).filter(BusRoute.route_name.like(f"%{query_string}%")).all()

@@ -8,3 +8,5 @@ services:
     ports:
       - "8083:5000"
       - "3306"
+    environment:
+      - FLASK_LOG_FILE='/var/log/app/restbus-api/container.log'
