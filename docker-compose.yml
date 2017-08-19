@@ -5,8 +5,9 @@ services:
     command: python main.py
     volumes:
       - .:/usr/src/app
+      - /var/log/app/restbus-api:/var/log
     ports:
       - "8083:5000"
       - "3306"
     environment:
-      - FLASK_LOG_FILE='/var/log/app/restbus-api/container.log'
+      - FLASK_LOG_FILE=/var/log/application.log
